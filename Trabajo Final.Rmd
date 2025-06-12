@@ -1,0 +1,1012 @@
+---
+title: "Impacto de los  Choques Macroeconómicos en la Inflación Colombiana: Un Enfoque Basado en modelos VAR Estructurales"
+author: "Diego Alejandro Alzate Rodriguez"
+date: "2025-05-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+La inflación es uno de los principales desafíos macroeconómicos que enfrentan las economías emergentes, incluida Colombia. La volatilidad en los precios de bienes y servicios puede afectar significativamente el poder adquisitivo de los hogares, la estabilidad económica y la formulación de políticas monetarias. Comprender los determinantes de la inflación es fundamental para el diseño de estrategias que permitan mitigar sus efectos adversos y garantizar un crecimiento económico sostenible.
+
+Entre los factores que inciden en la inflación, los choques de oferta y demanda juegan un papel determinante, a nivel general los choques macroeconómicos han sido de interés general en el caso de la literatura económica local, siendo que Colombia se caracteriza por ser un pequeño país exportador de materias primas sujeto a las volatilidades del precio de estos bienes. Algunos autores como Cárdenas(1991) y Suescún (1997) han utilizado el marco de análisis de la Teoría de los Ciclos Reales de Negocios (RBC)  donde han investigado si existen comovimientos entre los precios del café y el nivel de crecimiento del PIB, donde Cárdenas(1991) encuentra efectivamente que el ciclo real de negocios es explicado por los movimientos del precio del café, Suescún(1997) encuentra que en evidencia no hay un comportamiento procíclico del precio del café respecto al nivel de producto, en este orden de ideas procíclico se refiere a que los movimientos del precio del café se mueven en orden o signo igual al ciclo económico, es decir aumenta cuando la economía está en expansión y disminuye cuando la economía está en recesión.
+
+En la literatura económica Colombiana, diversos estudios han abordado el análisis de choques macroeconómicos desde distintos puntos de vista, algunos de forma aislada y otros buscando construir vínculos entre ellos. De forma particular, se ha evidenciado un profundo interés en comprender la naturaleza de los choques de oferta y demanda, su forma de propagación al igual que su efecto sobre la inflación. Utilizando metodologías como los modelos VAR estructurales investigaciones como las de Reinhard(1997), Carrasquilla, Galindo y Patrón (1994) han contribuido a este debate. Algunos de estos estudios pusieron su foco en el papel de los choques monetarios y su efecto temporal sobre la inflación, por otra parte otros han explorado el papel de la de la tasa de cambio real, la productividad y los términos de intercambio como canales de transmisión en los choques de oferta. En conjunto esta literatura proporciona un marco de análisis útil para comprender como diversas perturbaciones macroeconómicas afectan el comportamiento del ciclo económico en economías abiertas como Colombia.
+
+
+Ahora podemos desagregar los choques macroeconómicos en dos grandes clases, en choques desde variables que provienen de la oferta y variables que provienen de la demanda.
+Los choques de demanda pueden originarse por variaciones en el consumo, la inversión, el gasto público por ejemplo cambios estructurales como reformas tributarias o los cambios en la política monetaria, mientras que los choques de oferta pueden derivarse de fluctuaciones en los precios de insumos y bienes intermedios, costos energéticos, productividad o interrupciones en las cadenas de suministro. 
+
+En el caso de Colombia, fenómenos como la depreciación del peso, la volatilidad en los precios del petróleo y las disrupciones logísticas por ejemplo, los paros camioneros o fenómenos climáticos como temporadas fuertes de sequías y lluvias asociados al fenómeno del niño y de la niña han sido factores clave en la evolución de la inflación a lo largo del tiempo.
+
+El análisis de los choques inflacionarios ha sido ampliamente estudiado en la literatura económica, con modelos que buscan aislar y cuantificar sus efectos en las dinámicas de precios. Sin embargo, en el caso colombiano, la interacción entre factores externos e internos presenta particularidades que hacen necesario un estudio detallado. La dependencia del país de las materias primas, la sensibilidad del tipo de cambio y la respuesta de la política monetaria a estos fenómenos han configurado escenarios inflacionarios complejos que requieren ser analizados con herramientas econométricas avanzadas.
+
+Para capturar la evolución de estos choques a lo largo del tiempo, este estudio se enfocará en el período 2000-2023, lo que permitirá examinar distintos ciclos económicos y eventos clave que han impactado la inflación en Colombia. Entre ellos, se destacan la crisis financiera de 2008-2009, la caída de los precios del petróleo en 2015-2016, la depreciación del peso, la crisis inflacionaria derivada de la pandemia del COVID-19 y el reciente repunte inflacionario en un contexto global de incertidumbre económica.
+
+Los resultados de este análisis contribuirán a la discusión sobre el papel de la política monetaria en economías emergentes y su capacidad para mitigar los efectos de estos choques. Además, proporcionarán un marco de referencia para futuros estudios sobre la evolución inflacionaria en países con estructuras económicas similares a la de Colombia.
+
+### **Justificación**
+
+La inflación afecta de forma directa el bienestar de los hogares Schornpfeil,Weber y Hackethal (2024) un encarecimiento sostenido del nivel general de precios erosiona su poder adquisitivo y su consumo real. 
+
+Es de mayor interés el estudio de los determinantes inflacionarios y como los choques macroeconómicos inciden en esta, pues la inflación es mas intensiva en la erosión de poder adquisitivo en las familias con menores ingresos, pues Hua, Shi (2024) encuentran que las familias con condiciones de bajos ingresos  sufren pérdidas más que proporcionales en su capacidad de poder adquisitivo, lo que agrava la desigualdad y dificulta ela acceso a bienes y servicios básicos, más allá de esto el bienestar de los individuos. Por otra parte un entorno inflacionario alto e inestable Li, Londoño y Ma(2025) encuentran que su inestailidad genera incertidumbre en los mercados financieros, afectando las calificaciones de riesgo, así elevando la prima de riesgo, encareciendo el crédito para empresas y consumidores, afectando las expectativas de inflación a largo plazo dificultando la planificación de los agentes racionales en la economía en su decisiones de consumo e inversión. Este clima tiende a mermar el crecimiento potencial de la economía, pues la volatilidad en los precios desincentiva la acumulación de capital (riqueza) y la inversión productiva, es decir aquella inversión destinada a la generación de bienes´y servicios finales en la economía.
+
+En el caso colombiano diversos estudios han demostrado que los choques macroeconómicos han sido determinantes en la dinámica de inflación reciente. En base al Fondo Monetario Internacional (2025) Para Colombia la recuperación de la demanda posterior a la crisis del Covid-19 fue el principal motor inflacionario en 2021-2022, mientras que las disrupciones en las cadenas energéticas globales y la volatilidad en los precios del petróleo indujeron una presion al alza sobre los costos internos de producción y transporte. Sin embargo, persiste un grado de ambiguead o falta de claridad en el peso relativo de cada tipo de choque (oferta y demanda) y la forma en que inciden sobre la política monetaria.
+
+Es importante profundizar en los choques petroleros, su origen y consecuencias, pues como se explicaba en la introducción del estudio Colombia es un pequeño país exportador neto de materias primas y petróleo, por ende estos choques afectan el producto y el ajuste de la política fiscal y monetaria en sus instrumentos de política para hacerle frente a estos desequilibrios que en conjunto según el Fondo Monetario Internacional (FMI) afectan la estabilidad macroeconómica, que es una situación deseada en la economía con las siguientes características: 
+
+Existan condiciones de estabilidad de precios manteniendo la inflación anclada en niveles bajos y predecibles, pues la inflación baja favorece la asignación eficiente de recursos y evita distorsiones en contratos y decisiones de inversión.
+
+La estabilidad fiscal que implica el control del déficit fiscal y la relación deuda/PIB para obtener un financiamiento del gasto público sin comprometer la solvencia del estado. 
+
+Por otra parte el equilibrio externo, es decir la evitación de déficits de cuenta corriente (Balanza Comercial) que requieran una financiación internacional insostenible, donde un desequilibrio externo y persistente expone al país a riesgos de liquidez y crisis cambiarias. 
+La estabilidad financiera, garantiza que el sistema bancario y los mercados financieros puedan absorber choques sin desbordarse. 
+
+Certeza y credibilidad en las políticas económicas evitando conductas fiscales y monetarias procíclicas, generando confianza en el marco de política económica, donde las expectativas sólidas ayudan a mitigar la volatilidad y mejoran la efectividad de las intervenciones de política y finalmente el último componente de la estabilidad macroeconómica es el crecimiento económico sostenible, donde existe un panorama deseado  en que el PIB real se aproxime a su nivel potencial, de tal modo que no hayan presiones excesivas sobre el nivel de precios ni la subutilización de los factores de producción. 
+
+A nivel general en el año 2004 según el Banco de la República (2016), los precios del petróleo y algunas materias primas permitieron unos buenos términos de intercambio, esto se derivó en un crecimiento económico así como la base estructural de un sistema que permitió a Colombia reducir los efectos de la crisis financiera de 2008. Una alta expansión en su producción al igual que una elevada cotización del precio, permitió al sector petrolero tomar protagonismo en la economía Colombiana. Por ejemplo en el portafolio de exportaciones del país entre 2010 y 2013 el 51% de las exportaciones totales correspondieron a petróleo y sus derivados, por otra parte los autores recalcan que el 37% del total de la Inversión Extranjera Directa (IED) correspondió a inversión productiva en el sector petroléro, su impacto en las finanzas públicas también fue notable pues entre 2011 y 2014 la participación de los ingresos petroleros en el PIB fueron aproximadamente de 15.6% y los ingresos del gobierno derivado de las regalías del petróleo pasó de 7.5% en 2005 a 18.7% en 2012. 
+
+A partir de este panorama positivo para el país, en el año 2014 empezó a ocurrir una caida acelerada, persistente e inesperada de los precios del crudo lo que afectó los términos de intercambio del país. Esta fue la gestación de la crisis petrolera en Colombia.Pues el precio del barril rondaba cerca de los 110 USD por barril en promedio en 2011, en el segundo semestre de 2014 el precio del barril había caido a 45 USD por barril, esto representaba una caida del 60%. Este comportamiento había sido observado durante la crisis financiera de 2008 gestada en Estados Unidos, donde la contracción de la demanda agregada global llevo a una caida del 70% en el precio del barril. A su vez el factor inesperado se vio cuando las proyecciones del precio del barril por ejemplo en escenarios del fondo monetario internacional o el banco mundial y la Administración de Información Energética de Estados Unidos esperaban precios cercanos a 100 USD por barril en 2014 y una leve disminución en el año 2015.
+
+Este comportamiento acelerado en la caida del precio podemos verlo en el Gráfico 1.
+
+### Gráfico 1: Precio Internacional del Barril de Petróleo Brent y WTI 2000-2015
+<p style = "text-align: center;">
+  <img src = "C:\Users\djdie\Downloads\Consultoria e Investigacion\Investigacion\caida_precio2015.png">
+  <figcaption>Fuente: Banco de la República </figcaption>
+</p>
+
+Este comportamiento anómalo en el precio del crudo, tiene distintos factores que convergen a un comportamiento único. En primera medida según la Agencia Internacional de Energía en el año 2014 la oferta de barrilles creció por encima de la demanda, lo que causo una acumulación de inventarios en cifras de 1.000.000 de barriles diarios, principalmente en Estados Unidos una facilitación en la financiación de inversión, las expectativas crecientes en los precios del petróleo y la extracción y/o producción de crudos no convencionales. Por otra parte algunos paises con riesgo geopolítico es decir paises sujetos a sanciones económicas etc. Aceleraron la producción de crudo con el fin de blindarse a efectos de sanciones económicas, algunos paises incluyen a Irak, Rusia, Libia etc. Sin embargo estas sanciones no llegaron finalmente, lo que dejo una gran cantidad de barriles dentro de la oferta mundial de crudo.
+Ahora si miramos desde la perspectiva de la demanda de crudo, el panorama económico global se encontraba en una situación de desaceleración económica, principalmente de economias emergentes de la época como China las cuáles habian jalonado la demanda mundial de crudo durante al menos una década. Autores como Arezki y Blanchard(2014) explican que las menores expectativas de demanda en base al panorama global económico explicarian 1/3 de la caida del precio. 
+
+Respecto a esto la OPEP, la organización de productores y exportadores de petróleo decidió no recortar la producción de barriles a pesar de la continua caida del precio, algunos productores decidieron unilateralmente reducir el precio donde buscarian con esto una estrategia para reducir la competencia de exportadores buscando llevar a la quiebra a exportadores de barriles con estructuras de costos más rigidas y sensibles a choques del precio del barril, dentro de estos su principal competencia eran los productores de hidrocarburos no convencionales, a medida que el precio seguía bajo tendrian mayores dificultades en el financiamiento de sus operaciones y sus beneficios podrian incluso llegar a ser negativos.
+
+### Gráfico 2: Estimación por Sectores de la Cuenta Corriente 2000-2015
+<p style = "text-align: center;">
+  <img src = "C:\Users\djdie\Downloads\Consultoria e Investigacion\Investigacion\cuenta corriente.png">
+  <figcaption>Fuente: Banco de la República </figcaption> 
+</p>
+
+Dentro de los efectos de la crisis petrolera en Colombia, inicio en primera medida con una caida de los términos de intercambio lo que afecta directamente la cuenta corriente de la balanza comercial Colombiana , donde un efecto continuo de deficit en la cuenta corriente implica un superávit en la cuenta de capital, es decir que el país estaba gastando más en importaciones de bienes y servicios, pagos de rentas y transferencias hacia el exterior de lo que recibió por exportaciones y otras entradas similares. Esta defensa para cubrir el déficit externo lleva a la perdida de acumulación de Divisas por parte del Banco de la República, llevandolo a perder margen de maniobra frente a intervenciones necesarias en el mercado cambiario. 
+
+Esta depreciación nominal del peso respecto al dólar comparativamente entre 2014 y 2015 llego a su máximo del 63%, por otra parte la depreciación real en este mismo periodo fue de 42%. En sus origenes se considera la pérdida de credibilidad en el Euro por la crisis de Grecia, una mejora en los indicadores de la actividad real de Estados Unidos y las decisiones de la política monetaria de la Reserva Federal, asi como la desaceleración de economias emergentes como China.
+
+Ahora intuitivamente se espera que el encarecimiento de las importaciones en base a la depreciación de la tasa de cambio del peso con el dólar, llevara a un encarecimiento de los bienes y servicios importados, que se transmitirian a través de la economía presionando la inflación doméstica al alza.
+
+Otro canal de transmisión fueron las rentas del petróleo al gobierno, afectando las finanzas públicas donde las rentas del petroleo tenian una participación del 19.6%  en 2013 empezando a declinar frente a la crisis de los precios del crudo. Comparativamente aunque no parece tanto la participación del ingreso de las rentas del petroleo en los ingresos del gobierno, en la bonanza petrolerá del año 2005 cuando empezo el auge en la producción y exportación de barriles, ayudó al gobierno a reducir su déficit fiscal cerca de 5% del PIB. A grandes razgos el canal de transmisión de los términos de intercambio y del gasto público generaron una desaceleración o caida en el nivel del crecimiento del PIB con caidas de hasta -3.6% del PIB en 2016.
+
+Por otra parte la incertidumbre por la caida persistente de los precios del crudo afectó también las primas de riesgo, con un efecto más devastador en las economías emergentes. Para colombia el efecto de la política fiscal para hacer frente a la caida en los ingresos petroleros en las finanzas públicas y el crecimiento económico detonaron una caida en la confiabilidad o calidad de la deuda colombiana, haciendo que las calificadoras de riesgo bajaran su calificación sobre la calidad de su deuda, principalmente en Bonos donde en junio de 2014 el riesgo soberano en Colombia aumento 121 puntos básicos.
+
+Como consecuencia de estos desequilibrios macroeconómicos una política macroprudencial del Gobierno usando proyecciones conservadoras del precio del crudo buscando tener un margen de error frente a los ingresos fiscales, el regimen de inflación objetivo de la política monetaria, la flexbilidad de la tasa de cambio es decir esta es de libre flotación su nivel se determina por el comportamiento de la oferta y la demanda así como la regla fiscal ayudaron al país a mantenerse a flote en la incertidumbre y los desequilibrios experimentados en esta época.
+
+### Evidencia Empírica sobre Choques de Oferta y Demanda en la Inflación
+**Estudios Internacionales:**
+La literatura ha demostrado que los choques de oferta y demanda tienen impactos diferenciados en la inflación. Por ejemplo, Blanchard & Quah (1989) utilizaron un modelo SVAR para identificar que los choques de oferta tienen efectos permanentes sobre el PIB, mientras que los choques de demanda afectan la inflación de manera transitoria.
+
+En economías emergentes, estudios como el de Raddatz (2007) han demostrado que los choques externos, como la volatilidad de los precios del petróleo, afectan la inflación de manera más pronunciada en países dependientes de commodities o bienes básicos.
+
+**Estudios sobre Colombia:**
+En el contexto colombiano, investigaciones como la de Vargas – Herrera et al. (2012) Han encontrado que la inflación responde significativamente a choques externos, como la depreciación del peso y la variación de los precios de los alimentos. Adicionalmente, estudios del Banco de la República han utilizado modelos SVAR para evaluar el impacto de la política monetaria en la estabilidad de precios (Banco de la República, 2021).
+A grandes rasgos podemos notar la necesidad de un enfoque empírico riguroso para comprender los efectos de los choques de oferta y demanda en la inflación colombiana.
+
+### Antecedentes
+El estudio de los choques económicos y su impacto en variables macroeconómicas ha sido un tema central en la investigación económica contemporánea. Diversos autores han empleado modelos econométricos avanzados para analizar cómo los shocks de oferta y demanda afectan el crecimiento económico, la inflación y otras variables clave. Este artículo de antecedentes sintetiza los hallazgos más relevantes de la literatura reciente, centrándose en aplicaciones para economías emergentes, particularmente Colombia, y en el desarrollo metodológico de los modelos utilizados.
+
+Factores Asociados a los Choques Económicos
+Modelos VAR Estructurales (SVAR)
+Los modelos de Vectores Autoregresivos Estructurales (SVAR) han demostrado ser herramientas poderosas para identificar y analizar choques económicos. Toro et al. (2016) utilizaron este enfoque para examinar el impacto del choque petrolero de 2014 en la economía colombiana, encontrando efectos significativos en los términos de intercambio, el ingreso nacional y las cuentas fiscales. Similarmente, Zuccardi (2002) aplicó el método estructural de Blanchard y Quah (1989) para separar los choques de oferta y demanda en el PIB colombiano, concluyendo que los primeros fueron los principales determinantes del crecimiento durante el periodo 1998-2001.
+
+Lavanda y Rodríguez (2011) extendieron este enfoque al caso peruano, demostrando que los choques de demanda explicaron aproximadamente el 70% de la variación inflacionaria a corto plazo. Estos resultados coinciden con los hallazgos seminales de Blanchard y Quah (1989), quienes establecieron el marco teórico para distinguir entre choques permanentes (oferta) y transitorios (demanda) en el análisis de fluctuaciones económicas.
+
+Críticas y Avances Metodológicos
+Barsky y Kilian (2004) cuestionaron la visión tradicional sobre el papel de los choques petroleros, argumentando que muchos movimientos de precios podrían ser endógenos a factores de demanda global. Esta perspectiva fue complementada por Baumeister y Hamilton (2020), quienes introdujeron un enfoque bayesiano que relaja las restricciones de identificación tradicionales en los SVAR, encontrando que los choques de oferta petrolera han sido más importantes de lo estimado previamente.
+
+Shapiro (2022) y Sheremirov (2022) desarrollaron metodologías innovadoras para descomponer la inflación en componentes atribuibles a oferta y demanda, destacando diferencias clave en su persistencia temporal. Estos avances metodológicos han permitido una comprensión más matizada de las fuentes inflacionarias y sus implicaciones para la política monetaria.
+
+Aplicaciones al Caso Colombiano
+Transmisión de Choques Petroleros
+Varios estudios han analizado los mecanismos de transmisión de los choques petroleros en la economía colombiana. Gonzáles y Hernández (2016) identificaron al consumo privado como un canal clave de transmisión, especialmente durante el periodo 2000-2013 cuando el sector petrolero ganó importancia. Perilla (2009) encontró que los efectos de estos choques son simétricos a nivel agregado y sectorial, afectando homogéneamente a toda la economía.
+
+Camacho y González (2020) examinaron el impacto del fin del superciclo de commodities, demostrando que este choque de oferta global explicó la mayor parte de las fluctuaciones cíclicas en América Latina durante 2014-2016. Sus hallazgos resaltan las diferencias entre países exportadores e importadores netos de commodities.
+
+Dinámica Inflacionaria
+La inflación en Colombia ha sido objeto de numerosos estudios. Misas y Vásquez (2002) desarrollaron un modelo para estimar expectativas inflacionarias, validando la relación inversa entre inflación esperada y tasas reales predicha por el modelo de Mundell-Tobin. Misas et al. (2002) emplearon redes neuronales artificiales para capturar relaciones no lineales entre oferta monetaria e inflación, demostrando la superioridad de estos enfoques no lineales.
+
+Echevarria et al. (2011) analizaron la persistencia inflacionaria, encontrando que aunque el régimen de metas de inflación redujo los niveles y volatilidad de la inflación, no alteró significativamente su dinámica de persistencia. Estos hallazgos sugieren la presencia de inercias estructurales que requieren políticas específicas para su mitigación.
+
+Conclusiones y Perspectivas Futuras
+La revisión de la literatura evidencia el predominio de los modelos SVAR en el análisis de choques macroeconómicos, particularmente para distinguir entre shocks de oferta y demanda. Los avances recientes en identificación estructural, incluyendo enfoques bayesianos y métodos de descomposición, han enriquecido significativamente el arsenal metodológico disponible.
+
+Para el caso colombiano, los estudios coinciden en la importancia de los choques externos (especialmente petroleros) y en la necesidad de políticas macroeconómicas flexibles para mitigar sus efectos. La dinámica inflacionaria presenta particularidades que justifican el uso de enfoques no lineales y el análisis de sus componentes estructurales.
+
+Futuras investigaciones podrían beneficiarse de integrar estos enfoques con modelos más complejos que capturen interacciones sectoriales y mecanismos de transmisión financiera, así como de incorporar expectativas de manera más explícita en los análisis estructurales.
+
+### Metodología
+
+Los modelos de Vectores Autoregresivos son una alternativa para modelos de series de tiempo cuando no conocemos la teoría correcta, es decir no sabemos con exactitud que variables son endógenas y exógenas. Por ejemplo si tenemos un modelo de ecuaciones simultaneas Keynesiano expresando el consumo $C_t$ y la inversión $I_t$:
+
+$$
+\begin{align}
+C_t &= \alpha + \beta * Y_t + \epsilon_t \hspace{2cm} (1)\\
+Y_t &= C_t + I_t \hspace{2cm} (2)
+\end{align}
+$$
+
+Podemos observar que el consumo $C_t$ depende del ingreso $Y_t$, pero a su vez $Y_t$ depende de $C_t$. Ahora $\beta$ es la propensión marginal al consumo, la inversión $I_t$ es exógena y $C_t$ y $Y_t$ son endógenas.
+
+Si reemplazamos la segunda ecuación en la primea y despejamos $C_t$:
+
+$$
+
+\begin{align}
+C_t &= \alpha + \beta(C_t + I_t) + \epsilon_t = \alpha + \beta*C_t + \beta*I_t + \epsilon_t\\
+
+C_t - \beta*C_t &= \alpha + \beta*I_t + \epsilon_t\\
+
+C_t &= \frac{\alpha + \beta*I_t + \epsilon_t}{1-\beta} = \frac{\alpha}{1-\beta} + \frac{\beta}{1-\beta}*I_t + \frac{\epsilon_t}{1-\beta} \\
+
+Y_t &= \frac{\alpha}{1-\beta} + \frac{1}{1-\beta}*I_t + \frac{\epsilon_t}{1-\beta}
+\end{align}
+
+$$
+
+Si estimamos esto por MCO tenemos que $E(y'y)^{-1}y'\epsilon \neq 0$ y $\hat \beta$ serían sesgados e inconsistentes.
+
+Ahora si consideramos una alternativa que depende menos de que se tenga la teoría correcta para saber que variables son endógenas y exógenas, suponemos que de entrada existe un sistema de ecuaciones simultáneas y ahora todas las variables son endógenas. Es decir buscamos poner la forma reducida de las ecuaciones estructurales y dejar que los datos más que la teoría indiquen que variables deben ser incluidas y cuales excluidas, este es el enfoque de los modelos de Vectores Autoregresivos (VAR).
+
+Podemos escribir una ecuación reducida (es decir la expresión de una variable endógena en funció de exógenas o predeterminadas) para cada variable del vector en función de sus propios rezagos y de los rezagos de las otras variables, además del error.
+
+$$
+X_t = A_0 + A_1X_{t-1} + A_2X_{t-2} + \cdots + A_pX_{t-p}+ \epsilon_t
+$$
+- Donde $A_0$ es un vector de constantes de tamaño $m*1$ donde m es el número de variables y $A_1 \cdots A_p$ son matrices de coeficientes de orden $m*m$, por otra parte el error $\epsilon_t$ de tamaño $m*1$ son individualmente ruido blanco.
+
+Para los modelos VAR su matriz varianza y covarianza se define como $E(\epsilon_t\epsilon'_t) = \Sigma$
+
+por ejemplo si tenemos un modelo VAR(3) con $m = 2$ variables y $p = 3$ rezagos, en su forma completa tendría la siguiente estructura:
+
+$$
+\begin{pmatrix}
+x_{1t}\\x_{2t}
+\end{pmatrix} = 
+\begin{pmatrix}
+\alpha_{01}\\\alpha_{02}
+\end{pmatrix} +
+\begin{pmatrix}
+\alpha_{1,11} & \alpha_{1,12}\\\alpha_{1,21} & \alpha_{1,22}
+\end{pmatrix}
+\begin{pmatrix}
+x_{1t-1}\\x_{2t-1}
+\end{pmatrix} + 
+\begin{pmatrix}
+\alpha_{2,11} & \alpha_{2,12}\\\alpha_{2,21} & \alpha_{2,22}
+\end{pmatrix}
+\begin{pmatrix}
+x_{1t-2}\\x_{2t-2}
+\end{pmatrix} +
+\begin{pmatrix}
+\alpha_{3,11} & \alpha_{3,12}\\  \alpha_{3,21} & \alpha_{3,22}
+\end{pmatrix}
+\begin{pmatrix}
+x_{1t-3}\\ x_{2t-3}
+\end{pmatrix} + 
+\begin{pmatrix}
+e_{1t}\\ e_{2t}
+\end{pmatrix}
+$$
+
+Es decir en una forma de ecuaciones simultáneas tendríamos:
+
+$$
+\begin{align}
+x_{1t} &= \alpha_{01} + \alpha_{1,11}*x_{1t-1} + \alpha_{1,12}*x_{2t-1} + \alpha_{2,11}*x_{1t-2} + \alpha_{2,12}*x_{2t-2} + \alpha_{3,11}*x_{1t-3} + \alpha_{3,12}*x_{1t-3} + e_{1t}\\
+
+x_{2t} &= \alpha_{02} + \alpha_{1,21}*x_{1t-1} + \alpha_{1,22}*x_{2t-1} + \alpha_{2,21} * x_{1t-2} + \alpha_{2,22}*x_{2t-2} + \alpha_{3,21}*x_{1t-3} + \alpha_{3,22}*x_{2t-3} + e_{2t}
+\end{align}
+$$
+
+Estas se podrian estimar individualmente a través de máxima verosimilitud, a su vez también se puede usar MCO al ser un sistema simétrico y todas sus variables son endógenas.El modelo VAR fue usado por Sims(1980) con el fin de eliminar la necesidad de restricciones, al ser su finalidad observar la relación entre variables, este modelo se crea a partir de variables endógenas en función de variables exógenas.
+
+Ahora si escribimos el modelo en su forma estructural o equivalente estructural tenemos nuestro vector de variables endógenas en función de efectos contemporáneos($\beta_{12}, \beta_{21}$) e innovaciones puras o choques($\epsilon_t$):
+
+$$
+y_t = \beta_{10} - \beta_{12}Z_t + \gamma_{11}*y_{t-1} + \gamma_{12}*z_{t-1}+\epsilon_{1,t}\\
+z_t = \beta_{20} - \beta_{21}y_t + \gamma_{21}*y_{t-1} + \gamma_{22}*z_{t-1} + \epsilon_{2,t}
+$$
+Si reagrupamos esto y dejamos las variables endógenas en la izquierda y en la derecha las variables exógenas tenemos:
+
+$$
+\begin{pmatrix}
+1 & \beta_{12}\\ \beta_{21} & 1
+\end{pmatrix} 
+\begin{pmatrix}
+y_t\\ z_t
+\end{pmatrix} =
+\begin{pmatrix}
+\beta_{10} \\ \beta_{20}
+\end{pmatrix} +
+\begin{pmatrix}
+\gamma_{11} & \gamma_{12}\\ \gamma_{21} & \gamma_{22}
+\end{pmatrix}
+\begin{pmatrix}
+y_{t-1}\\z_{t-1}
+\end{pmatrix} +
+\begin{pmatrix}
+\epsilon_{1,t} \\ \epsilon_{2,t}
+\end{pmatrix}
+$$
+Ahora esta primera matriz la podemos llamar $B$ , la matriz de constantes $\Gamma_0$ y la matriz de coeficientes $\Gamma_1$, así queda de la forma: $BY_t = \Gamma_0 + \Gamma_1Y_{t-1} + \epsilon_t$. En base a esta nueva definición de forma estructural podemos pasar a la forma reducida de un VAR si multiplicamos por $B^{-1}$.
+
+$$
+\begin{align}
+B^{-1}BY_t &= B^{-1}\Gamma_0 + B^{-1}\Gamma_1Y_{t-1} + B^{-1}\epsilon_t\\
+Y_t &= A_0 + A_1Y_{t-1} + e_t\\
+\text{Donde tenemos que:} \hspace{2cm}\\
+A_0 &= B^{-1}\Gamma_0\\
+A_1 &= B^{-1}\Gamma_1\\
+e_t &= B^{-1}\epsilon_t
+\end{align}
+$$
+De esta forma tenemos que $e_t$ los residuales de la forma reducida es decir residuales no puros o combinados dependen de la forma estructural de los residuos $\epsilon_t$ y la inversa de la matriz de coeficientes. Esto es altamente relevante en nuestro problema de estudio pues la identificación de choques proviene justo de los residuales puros, para que estos puedan tener interpretación económica.
+
+Ahora si deducimos la matriz de varianzas y covarianzas de la forma estructural partimos de:
+
+$$
+\begin{align}
+e_t &= B^{-1}\epsilon_t\\
+Be_t &= \epsilon_t\\
+Var(Be_t) &= Var(\epsilon_t), \hspace{1cm}\text{esto implica}\\
+B*Var(e_t)*B^{T} &= Var(\epsilon_t)\\
+B\Sigma_eB^{T} = \Sigma_{\epsilon}
+\end{align}
+$$
+Por lo que la matriz de varianza y covarianza de los errores estructurales $\epsilon_t$ va a depender de $B$ y la matriz de varianza y covarianza de los errores reducidos. Esto finalmente implica que los términos de error de un VAR corresponde a una combinación de los choques puros. Así al estimar un modelo VAR obtendremos los valores de los errores reducidos $e_{i,t}$ y no los choques puros $\epsilon_{i,t}$, por lo que es necesario recuperar o hallar estos errores puros restringiendo la matriz $B$, pues vamos a tener más incognitas que ecuaciones.
+
+En base a esto aparece el modelo VAR estructural, un modelo VAR con restricciones donde se requieren imponer por lo menos $\frac{m^{2}-m}{2}$ restricciones.
+
+Sims (1980) propone restricciones de corto plazo o de impacto contemporáneo donde originalmente buscó estudiar los efectos de la política monetaria ordenando las variables desde las más exógenas a las más endógenas en el corto plazo, por ejemplo suponemos que basados en teoría económica imponemos que la producción no reacciona contemporáneamente a cambios en los precios o tasas de interés, sino que estos efectos toman tiempo en llegar a los canales de transmisión y afectar el producto, por otra parte decimos que los precios reaccionan contemporáneamente a la producción pero no a las tasas de interés y que las tasas de interés reaccionan contemporaneamente a la producción y el nivel de precios.
+
+Esto nos lleva a una matriz $B$ triangular inferior:
+
+$$
+    \begin{pmatrix}
+    1 & 0 & 0\\
+    a_{21} & 1 & 0\\
+    a_{31} & a_{32} & 1
+    \end{pmatrix}
+$$
+Intuitivamente tenemos que la primera fila de $B$ solo se ve afectada contemporáneamente por su propio choque, la segunda fila muestra que los precios responden a choques de producción pero no a choques de tasa de interés en el mismo periodo y la tercera fila permite que las tasas respondan a todos los schocks contemporáneamente.
+
+Esto implica que la estructura triangular permite una identificación recursiva del modelo , donde el orden de las variables implica supuestos de velocidad de ajuste. Sin embargo dentro de algunas limitaciones tenemos que el ordenamiento de las variables puede ser arbitrario y por ende afectar lo resultados, las restricciones pueden no reflejar la teoría económica y en sistemas complejos la estructura triangular inferior puede ser muy restrictiva. 
+
+Otra propuesta de restricción surge por Blanchard y Quah (1989), que buscaban discriminar entre los efectos de corto plazo(impactos contemporáneos) y largo plazo o choques temporales y permanentes mediante restricciones de largo plazo. Es decir que mientras que Sims (1980) usaba restricciones de corto plazo estos autores propusieron restricciones de largo plazo basadas en: 
+
+- Los efectos acumulados de ciertos choques sobre las variables deben ser cero en el largo plazo. Lo que nos permite identificar choques transitorios es decir choques que se disipan en el tiempo y permiten que la variable afectada vuelva a su media a largo plazo ylos choques permanentes que persisten en el tiempo y modifican la tendencia de comportamiento de la variable afectada por el choque inicialmente.
+
+La representación de un modelo $VAR(p)$ como un proceso de media móvil infinito $VMA(\infty)$ es esencial para el análisis de choques estructurales. Esta representación nos permite descomponer las variables macroeconómicas en componentes atribuibles a distintos tipos de perturbaciones, como choques de demanda y oferta. Tomando nuevamente a Blanchard y Quah(1989) identifican los choques estructurales imponiendo restricciones de largo plazo sobre sus efectos, particularmente en sistemas donde las variables pueden tener relaciones permanentes y transitorias.
+
+Es necesario partir de un modelo VAR y llevarlo a su representación VMA, es decir partimos de un modelo VAR en su forma reducida:
+
+$$
+y_t = A_1y_{t-1} + A_2y_{t-2}+ \cdots + A_py_{t-p}+ \mu_t \hspace{2cm} (1)
+$$
+Bajo el supuesto de estabilidad(Todas las raices del polinomio característico están fuera del círculo unitario) este sistema admite una representación de media móvil infinita:
+
+$$
+y_t = \sum_{i=0}^{\infty} \Psi_iu_{t-i} \hspace{2cm} (2) 
+$$
+donde $\Psi_0 = I$ y las matrices $\Psi_i$ se construyen de forma recursiva a partir de los coeficientes  $A_j$. Sin embargo los errores $u_t$ están correlacionados por lo que no pueden interpretarse directamente como choques estructurales. Para ello, se requiere identificar un conjunto de innovaciones estructurales $\epsilon_t$ de tal forma que:
+
+$$
+u_t = S\epsilon_t, \hspace{0.7cm} \text{con} \hspace{0.4cm} E(\epsilon_t\epsilon'_t) = I \hspace{2cm} (3) 
+$$
+
+Para encontrar la representación estructural $VMA(\infty)$ sustituimos (3) en (2):
+
+$$
+y_t = \sum_{i=0}^{\infty} \psi_iS\epsilon_{t-i} = \sum_{i=0}^{\infty}\Theta_i\epsilon_{t-i}, \hspace{0.7cm} \text{con} \hspace{0.5cm} \Theta_i = \psi_iS \hspace{2cm} (4)   
+$$
+
+En (4) podemos ver que $\Theta_i$ representa el impacto dinámico de los choques estructurales ortogonales $\epsilon_t$ sobre las variables del sistema. Es decir esto es como tener $Y_t = S\epsilon_t$, ahora cada elemento de esta matriz $S$ es decir los $S_{i,j}= S_{i,j}(L) = 0$ corresponde a un polinomio en el operador de rezago y si restringimos alguno de estos coeficientes a ser igual a cero tenemos entonces que la respuesta acumulada de la variable $i$ a un shock estructural en la variable $j$ es cero en el largo plazo. Por ejemplo:
+
+$$
+\begin{pmatrix}
+y_t \\ z_t
+\end{pmatrix} =
+\begin{pmatrix}
+S_{11} & 0 \\ S_{21} & S_{22}
+\end{pmatrix}
+\begin{pmatrix}
+\epsilon_{1,t} \\ \epsilon_{2,t}
+\end{pmatrix}
+\hspace{2cm} (5)
+$$
+
+Aquí estamos diciendo en (5) que $y_t$ es afectado en el corto plazo por choques en $z_t$ pero a largo plazo no existirá efecto. Blanchard y Quah (1987) Es importante entender que si utilizamos un enfoque con solo restricciones de corto plazo o solo restricciones a largo plazo debemos imponer $m(m-1)/2$ restricciones. Si deseamos un enfoque basado en restricciones de corto plazo y largo plazo debemos imponer $m^{2}+(m^{2}-m)/2$
+
+```{r, warning=FALSE, message=FALSE}
+library(readr)
+library(dplyr)
+library(readxl)
+library(lubridate)
+library(stringr)
+library(janitor)
+library(tidyr)
+#
+inflacion_usa <- read.csv("inflacion_usa.csv", skip = 4)
+names(inflacion_usa) <- sub("^X", "", names(inflacion_usa))
+inflacion_usa <- inflacion_usa[,names(inflacion_usa) != ""]
+
+# Seleccionamos solo Estados Unidos
+inflacion_usa <- inflacion_usa %>% filter(Country.Code == 'USA')
+
+#
+df_largo <- inflacion_usa %>%
+  pivot_longer(
+    cols = `1960`:`2024`,         # Indica el rango de columnas con los años
+    names_to = "Año",             # El nuevo nombre de columna que contendrá los años
+    values_to = "Inflacion"       # El nuevo nombre de columna que contendrá los valores
+  ) %>%
+  mutate(Año = as.integer(Año))   # Convierte los años de texto a número
+#
+inflacion_usa <- df_largo %>% dplyr::select(Año, Inflacion)
+
+#
+lineas <- read_lines('precio_petroleo.csv')
+lineas_corr <- gsub('"(\\d+),(\\d+)"', '"\\1.\\2"', lineas)
+precio_petroleo <- read_csv(paste(lineas_corr, collapse = "\n"))
+precio_petroleo$Fecha <- as.Date(precio_petroleo$Fecha, format = '%d.%m.%Y')
+
+
+#
+colcap <- read.csv2('Colcap.csv',sep = ';',dec = '.')
+colnames(colcap) <- c('Fecha','Indice','Variacion_Absoluta','Variacion_Porcentual')
+colcap$Fecha <- dmy(sub(" .*", "", colcap$Fecha))
+colcap$Fecha <- as.Date(format(colcap$Fecha, "%d-%m-%Y"), format= "%d-%m-%Y")
+
+#
+lineas <- read_lines('TRM.csv')
+lineas_corr <- gsub('"(\\d+),(\\d+)"', '"\\1.\\2"', lineas)
+TRM <- read_csv(paste(lineas_corr, collapse = "\n"), col_names = FALSE, skip = 1)
+colnames(TRM) <- c('Fecha','TRM')
+TRM$Fecha <- as.Date(TRM$Fecha, format = '%d/%m/%Y')
+
+#
+PIB_real <- read_excel('PIB_real.xlsx')
+colnames(PIB_real) <- c('Fecha','PIB_Real','Variacion_Trimestral')
+PIB_real$Fecha <- as.Date(PIB_real$Fecha, format = '%d-%m-%Y')
+PIB_real$Fecha <- as.Date(format(PIB_real$Fecha, '%d-%m-%Y'),format = '%d-%m-%Y')
+
+#
+desempleo <- read_excel('Tasa de Desempleo.xlsx')
+desempleo$Fecha <- as.Date(format(desempleo$Fecha, "%d-%m-%Y"), format = "%d-%m-%Y")
+```
+
+
+```{r, warning=FALSE, message=FALSE,echo=FALSE}
+library(ggplot2)
+
+
+# Cargar Datos
+inflacion <- read_excel('Inflacion y Meta.xlsx')
+colnames(inflacion) <- c('Fecha','Inflacion Total','Limite Inferior','Meta Inflacion', 'Limite Superior')
+inflacion$Fecha <- as.Date(inflacion$Fecha, format = "%Y-%m-%d")
+
+# Revisar NA's
+inflacion <- inflacion %>%
+  fill(`Meta Inflacion`, `Limite Inferior`, `Limite Superior`, .direction = "down")
+
+#
+inflacion$`Meta Inflacion`[inflacion$Fecha < as.Date("1999-01-01")] <- NA
+```
+
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+# Cargar archivo
+lineas <- read_lines('Tasa_Política_Monetaria.csv')
+lineas_corr <- gsub('"(\\d+),(\\d+)"', '"\\1.\\2"', lineas)
+write_lines(lineas_corr, 'tasa_politica_limpia.csv')
+#
+tasa_politica_monetaria <- read_csv('tasa_politica_limpia.csv', col_names = FALSE, skip = 1)
+
+# Asignar nombres de columnas
+colnames(tasa_politica_monetaria) <- c('Fecha', 'Tasa Politica Monetaria')
+tasa_politica_monetaria$Fecha <- as.Date(tasa_politica_monetaria$Fecha, format = '%d/%m/%Y')
+```
+
+```{r, warning=FALSE, message=FALSE}
+# Conversión a series de tiempo trimestrales
+library(lubridate)
+
+# Inflación
+inflacion_trimestral <- inflacion %>%
+  mutate(
+    Fecha_trimestre = floor_date(Fecha, unit = "quarter")  
+  ) %>%
+  group_by(Fecha_trimestre) %>%
+  summarise(`Inflacion Total` = mean(`Inflacion Total`, na.rm = TRUE)) %>%
+  ungroup()
+
+# Política Monetaria
+tasa_politica_trimestral <- tasa_politica_monetaria %>%
+  mutate(
+    Fecha_trimestre = floor_date(Fecha, unit = "quarter")  
+  ) %>%
+  group_by(Fecha_trimestre) %>%
+  summarise(across(
+    .cols = where(is.numeric),    
+    .fns = ~ mean(.x, na.rm = TRUE),
+    .names = "{.col}"
+  )) %>%
+  ungroup()
+
+# Desempleo
+desempleo_trimestral <- desempleo %>%
+  mutate(
+    Fecha_trimestre = floor_date(Fecha, unit = "quarter")  # inicio del trimestre
+  ) %>%
+  group_by(Fecha_trimestre) %>%
+  summarise(across(
+    .cols = where(is.numeric),
+    .fns = ~ mean(.x, na.rm = TRUE),
+    .names = "{.col}"
+  )) %>%
+  ungroup()
+
+# Indice Colcap
+colcap_trimestral <- colcap %>% 
+  mutate(Trimestre = floor_date(Fecha, 'quarter')) %>% 
+  group_by(Trimestre) %>% 
+  summarise(across(where(is.numeric),mean, na.rm = TRUE))
+
+# TRM
+TRM_trimestral <- TRM %>% 
+  mutate(Trimestre = floor_date(Fecha, 'quarter')) %>% 
+  group_by(Trimestre) %>% 
+  summarise(across(where(is.numeric),mean, na.rm = TRUE))
+
+# Precio Petróleo
+petroleo_trimestral <- precio_petroleo %>% 
+  mutate(Trimestre = floor_date(Fecha, 'quarter')) %>% 
+  group_by(Trimestre) %>% 
+  summarise(across(where(is.numeric),mean, na.rm = TRUE))
+
+# Inflacion USA
+
+# Crear columna con trimestres
+inflacion_usa <- inflacion_usa %>%
+  mutate(Trimestre = list(1:4)) %>%
+  unnest(Trimestre) %>%
+  mutate(
+    Fecha = case_when(
+      Trimestre == 1 ~ paste0(Año, "-01-01"),
+      Trimestre == 2 ~ paste0(Año, "-04-01"),
+      Trimestre == 3 ~ paste0(Año, "-07-01"),
+      Trimestre == 4 ~ paste0(Año, "-10-01")
+    ),
+    Fecha = as.Date(Fecha)
+  ) %>%
+  dplyr::select(Fecha, Inflacion)
+
+```
+
+### Análisis Exploratorio
+
+```{r, warning=FALSE, message=FALSE}
+library(moments)
+descr_infl <- data.frame(media = mean(inflacion_trimestral$`Inflacion Total`,na.rm = TRUE), 
+                         mediana = median(inflacion_trimestral$`Inflacion Total`,na.rm = TRUE),
+                         minimo = min(inflacion_trimestral$`Inflacion Total`,na.rm = TRUE),
+                         maximo = max(inflacion_trimestral$`Inflacion Total`,na.rm = TRUE),
+                         desviacion_estandar = sd(inflacion_trimestral$`Inflacion Total`, na.rm = TRUE), CV = 100*sd(inflacion_trimestral$`Inflacion Total`, na.rm = TRUE)/mean(inflacion_trimestral$`Inflacion Total`,na.rm = TRUE),
+                         asimetria = skewness(inflacion_trimestral$`Inflacion Total`),
+                         curtosis = kurtosis(inflacion_trimestral$`Inflacion Total`),
+                         tasa_crecimiento = mean(diff(log(inflacion_trimestral$`Inflacion Total`))))
+
+#
+library(kableExtra)
+library(knitr)
+tabla_infla_col <- kable(descr_infl,format = 'simple', 
+                         col.names = c('Media','Mediana','Mínimo','Máximo','Desviación Estándar','Coeficiente Variación','Asimetría','Curtosis','Tasa Crecimiento Promedio'),
+caption = 'Estadísticas Descriptivas de la Inflación Trimestral en Colombia') 
+#
+tabla_infla_col
+```
+
+```{r, warning=FALSE, message=FALSE}
+tasa_int_descr <- data.frame(media = mean(tasa_politica_trimestral$`Tasa Politica Monetaria`,na.rm = TRUE), 
+                         mediana = median(tasa_politica_trimestral$`Tasa Politica Monetaria`,na.rm = TRUE),
+                         minimo = min(tasa_politica_trimestral$`Tasa Politica Monetaria`,na.rm = TRUE),
+                         maximo = max(tasa_politica_trimestral$`Tasa Politica Monetaria`,na.rm = TRUE),
+                         desviacion_estandar = sd(tasa_politica_trimestral$`Tasa Politica Monetaria`, na.rm = TRUE), 
+                         CV = 100*sd(tasa_politica_trimestral$`Tasa Politica Monetaria`, na.rm = TRUE)/mean(tasa_politica_trimestral$`Tasa Politica Monetaria`,na.rm = TRUE),
+                         asimetria = skewness(tasa_politica_trimestral$`Tasa Politica Monetaria`),
+                         curtosis = kurtosis(tasa_politica_trimestral$`Tasa Politica Monetaria`),
+                         tasa_crecimiento = mean(diff(log(tasa_politica_trimestral$`Tasa Politica Monetaria`))))
+
+#
+tabla_pol <- kable(tasa_int_descr,format = 'simple', 
+                         col.names = c('Media','Mediana','Mínimo','Máximo','Desviación Estándar','Coeficiente Variación','Asimetría','Curtosis','Tasa Crecimiento Promedio'),
+caption = 'Estadísticas Descriptivas de la Tasa de Interés de Política Monetaria') 
+#
+tabla_pol
+```
+```{r, warning=FALSE, message=FALSE}
+desempleo_descr <- data.frame(media = mean(desempleo_trimestral$`Tasa de Desocupación (TD)`,na.rm = TRUE), 
+                         mediana = median(desempleo_trimestral$`Tasa de Desocupación (TD)`,na.rm = TRUE),
+                         minimo = min(desempleo_trimestral$`Tasa de Desocupación (TD)`,na.rm = TRUE),
+                         maximo = max(desempleo_trimestral$`Tasa de Desocupación (TD)`,na.rm = TRUE),
+                         desviacion_estandar = sd(desempleo_trimestral$`Tasa de Desocupación (TD)`, na.rm = TRUE), 
+                         CV = 100*sd(desempleo_trimestral$`Tasa de Desocupación (TD)`, na.rm = TRUE)/mean(desempleo_trimestral$`Tasa de Desocupación (TD)`,na.rm = TRUE),
+                         asimetria = skewness(desempleo_trimestral$`Tasa de Desocupación (TD)`),
+                         curtosis = kurtosis(desempleo_trimestral$`Tasa de Desocupación (TD)`),
+                         tasa_crecimiento = mean(diff(log(desempleo_trimestral$`Tasa de Desocupación (TD)`))))
+
+#
+
+tabla_desempleo <- kable(desempleo_descr, format = 'simple',col.names = c('Media','Mediana','Mínimo','Máximo','Desviación Estándar','Coeficiente Variación','Asimetría','Curtosis','Tasa Crecimiento Promedio'),
+caption = 'Estadísticas Descriptivas de la Tasa de Desocupados') 
+
+#
+tabla_desempleo
+```
+```{r, warning=FALSE, message=FALSE}
+infla_usa_descr <- data.frame(media = mean(inflacion_usa$Inflacion, na.rm = TRUE), 
+                         mediana = median(inflacion_usa$Inflacion, na.rm = TRUE),
+                         minimo = min(inflacion_usa$Inflacion, na.rm = TRUE),
+                         maximo = max(inflacion_usa$Inflacion, na.rm = TRUE),
+                         desviacion_estandar = sd(inflacion_usa$Inflacion, na.rm = TRUE), 
+                         CV = 100*sd(inflacion_usa$Inflacion, na.rm = TRUE)/mean(inflacion_usa$Inflacion,na.rm = TRUE),
+                         asimetria = skewness(inflacion_usa$Inflacion, na.rm = TRUE),
+                         curtosis = kurtosis(inflacion_usa$Inflacion, na.rm = TRUE),
+                         tasa_crecimiento = mean(diff(log(inflacion_usa$Inflacion)),na.rm = TRUE))
+#
+tabla_infla_usa <- kable(infla_usa_descr, format = 'simple',col.names = c('Media','Mediana','Mínimo','Máximo','Desviación Estándar','Coeficiente Variación','Asimetría','Curtosis','Tasa Crecimiento Promedio'),
+caption = 'Estadísticas Descriptivas de la Inflación Anual en Estados Unidos') 
+#
+tabla_infla_usa
+```
+```{r, warning=FALSE, message=FALSE}
+petroleo_descr <- data.frame(media = mean(petroleo_trimestral$Último,na.rm = TRUE), 
+                         mediana = median(petroleo_trimestral$Último,na.rm = TRUE),
+                         minimo = min(petroleo_trimestral$Último,na.rm = TRUE),
+                         maximo = max(petroleo_trimestral$Último,na.rm = TRUE),
+                         desviacion_estandar = sd(petroleo_trimestral$Último, na.rm = TRUE), 
+                         CV = 100*sd(petroleo_trimestral$Último, na.rm = TRUE)/mean(petroleo_trimestral$Último,na.rm = TRUE),
+                         asimetria = skewness(petroleo_trimestral$Último),
+                         curtosis = kurtosis(petroleo_trimestral$Último),
+                         tasa_crecimiento = mean(diff(log(petroleo_trimestral$Último))))
+#
+tabla_petroleo <- kable(petroleo_descr, format = 'simple',col.names = c('Media','Mediana','Mínimo','Máximo','Desviación Estándar','Coeficiente Variación','Asimetría','Curtosis','Tasa Crecimiento Promedio'),
+caption = 'Estadísticas Descriptivas del Precio del Barril Brendt en Dólares') 
+#
+tabla_petroleo
+```
+```{r, warning=FALSE, message=FALSE}
+colcap_descr <- data.frame(media = mean(colcap_trimestral$Indice,na.rm = TRUE), 
+                         mediana = median(colcap_trimestral$Indice,na.rm = TRUE),
+                         minimo = min(colcap_trimestral$Indice,na.rm = TRUE),
+                         maximo = max(colcap_trimestral$Indice,na.rm = TRUE),
+                         desviacion_estandar = sd(colcap_trimestral$Indice, na.rm = TRUE), 
+                         CV = 100*sd(colcap_trimestral$Indice, na.rm = TRUE)/mean(colcap_trimestral$Indice,
+                                                                       na.rm = TRUE),
+                         asimetria = skewness(colcap_trimestral$Indice),
+                         curtosis = kurtosis(colcap_trimestral$Indice),
+                         tasa_crecimiento = mean(diff(log(colcap_trimestral$Indice))))
+#
+tabla_colcap <- kable(colcap_descr, format = 'simple',col.names = c('Media','Mediana','Mínimo','Máximo','Desviación Estándar','Coeficiente Variación','Asimetría','Curtosis','Tasa Crecimiento Promedio'),
+caption = 'Estadísticas Descriptivas del Indice Colcap') 
+#
+tabla_colcap
+```
+
+```{r, warning=FALSE, message=FALSE}
+trm_desc <- data.frame(media = mean(TRM_trimestral$TRM,na.rm = TRUE), 
+                         mediana = median(TRM_trimestral$TRM,na.rm = TRUE),
+                         minimo = min(TRM_trimestral$TRM,na.rm = TRUE),
+                         maximo = max(TRM_trimestral$TRM,na.rm = TRUE),
+                         desviacion_estandar = sd(TRM_trimestral$TRM, na.rm = TRUE), 
+                         CV = 100*sd(TRM_trimestral$TRM, na.rm = TRUE)/mean(TRM_trimestral$TRM,
+                                                                       na.rm = TRUE),
+                         asimetria = skewness(TRM_trimestral$TRM),
+                         curtosis = kurtosis(TRM_trimestral$TRM),
+                         tasa_crecimiento = mean(diff(log(TRM_trimestral$TRM))))
+#
+tabla_TRM <- kable(trm_desc, format = 'simple',col.names = c('Media','Mediana','Mínimo','Máximo','Desviación Estándar','Coeficiente Variación','Asimetría','Curtosis','Tasa Crecimiento Promedio'),
+caption = 'Estadísticas Descriptivas de la Tasa Representativa del Mercado') 
+#
+tabla_TRM
+```
+```{r, warning=FALSE, message=FALSE}
+pibr_desc <- data.frame(media = mean(PIB_real$PIB_Real,na.rm = TRUE), 
+                         mediana = median(PIB_real$PIB_Real,na.rm = TRUE),
+                         minimo = min(PIB_real$PIB_Real,na.rm = TRUE),
+                         maximo = max(PIB_real$PIB_Real,na.rm = TRUE),
+                         desviacion_estandar = sd(PIB_real$PIB_Real, na.rm = TRUE), 
+                         CV = 100*sd(PIB_real$PIB_Real, na.rm = TRUE)/mean(PIB_real$PIB_Real,na.rm = TRUE),
+                         asimetria = skewness(PIB_real$PIB_Real),
+                         curtosis = kurtosis(PIB_real$PIB_Real),
+                         tasa_crecimiento = mean(diff(log(PIB_real$PIB_Real))))
+#
+tabla_pibr <- kable(pibr_desc, format = 'simple',col.names = c('Media','Mediana','Mínimo','Máximo','Desviación Estándar','Coeficiente Variación','Asimetría','Curtosis','Tasa Crecimiento Promedio'),
+caption = 'Estadísticas Descriptivas del Producto Interno Bruto a precios constantes 2015') 
+#
+tabla_pibr
+```
+```{r}
+library(purrr)
+
+# Encuentra el rango común de fechas entre las variables
+inflacion_filt <- inflacion_trimestral %>% filter(Fecha_trimestre >= '2000-01-01' &   Fecha_trimestre <= '2025-04-01')
+colnames(inflacion_filt) <- c("Trimestre", "Inflacion Total")
+#
+trm_filt <- TRM_trimestral %>% filter(Trimestre >= '2000-01-01')
+colnames(trm_filt) <- c("Trimestre","TRM")
+#
+colnames(tasa_politica_trimestral) <- c('Trimestre','Tasa Politica Monetaria')
+#
+tasas_merged <- reduce(list(inflacion_filt, trm_filt, tasa_politica_trimestral), full_join,by = 'Trimestre') 
+
+
+# Todas la variables de interés las volvemos normal estándar
+tasas_merged_scaled <- tasas_merged %>%
+  mutate(across(c('Tasa Politica Monetaria', 'Inflacion Total', 'TRM'), 
+                ~ (.-mean(., na.rm = TRUE)) / sd(., na.rm = TRUE),
+                .names = "{.col}_z"))
+
+# Convertimos de wide a long
+tasas_largo <- tasas_merged_scaled %>%
+  dplyr::select('Trimestre', 'Tasa Politica Monetaria_z', 'Inflacion Total_z', 'TRM_z') %>%
+  pivot_longer(
+    cols = c('Tasa Politica Monetaria_z', 'Inflacion Total_z', 'TRM_z'),
+    names_to = "Variable",
+    values_to = "Valor")
+
+# Graficamos 
+ggplot(tasas_largo, aes(x = Trimestre, y = Valor, color = Variable)) +
+  geom_line(size = 1) +
+  scale_x_date(date_labels = "%Y", date_breaks = "1 year") +
+  labs(title = "Comparación estandarizada: Política Monetaria, Inflación y TRM",
+       x = "Fecha", y = "Valor estandarizado (z-score)", color = "Variable") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90))
+```
+```{r}
+colnames(PIB_real) <- c('Trimestre', 'PIB_Real','Variacion_Trimestral')
+# Ajustar formato de fechas del PIB real
+PIB_real <- PIB_real  %>%
+  mutate(
+    Trimestre = make_date(year(Trimestre), (quarter(Trimestre) - 1) * 3 + 1, 1)
+  )
+# Encontrar rango común de fechas
+fecha_min <- max(c(min(PIB_real$Trimestre),min(petroleo_trimestral$Trimestre),
+                   min(colcap$Fecha)))
+fecha_max <- min(c(max(PIB_real$Trimestre),max(petroleo_trimestral$Trimestre),
+                   max(colcap$Fecha)))
+
+# Filtrar los dataframes en un periodo común
+PIB_real_filtrado <- PIB_real %>% filter(Trimestre >= fecha_min & Trimestre <= fecha_max)
+petroleo_filtrado <- petroleo_trimestral %>% filter(Trimestre >= fecha_min & Trimestre <= fecha_max)
+colcap_filtrado <- colcap_trimestral %>% filter(Trimestre >= fecha_min & Trimestre <= fecha_max)
+
+# Unir en un solo dataframe
+datos_merged <- reduce(list(dplyr::select(PIB_real_filtrado, Trimestre, PIB_Real), 
+                            dplyr::select(petroleo_filtrado, Trimestre, Último), dplyr::select(colcap_filtrado, Trimestre, Indice)), full_join, by = 'Trimestre')
+
+# Escalamiento (Normalización) de las tres variables
+datos_long <- datos_merged %>%
+  mutate(across(-Trimestre, scale)) %>%
+  pivot_longer(cols = -Trimestre, names_to = "Variable", values_to = "Valor")
+
+# Gráficamos
+ggplot(datos_long, aes(x = Trimestre, y = Valor, color = Variable)) +
+  geom_line(size = 1) +
+  labs(title = "Evolución normalizada: PIB Real, Precio Petróleo y COLCAP",
+       x = "Fecha", y = "Valor escalado (z-score)") +
+  theme_minimal() +
+  theme(legend.title = element_blank())
+
+```
+```{r}
+library(ggcorrplot)
+library(scales)
+
+ # Solo tomamos columnas numéricas para la correlación
+df_cor <- datos_merged %>%
+  dplyr::select(PIB_Real, Último, Indice) %>%
+  drop_na()
+
+# Matriz de correlación
+cor_matrix <- cor(df_cor)
+kable(cor_matrix, caption = 'Matriz de Correlación entre el PIB real, el Precio del Petróleo y el Indice Colcap',digits = 4)
+```
+
+```{r}
+# Renombrar columnas para que todas tengan fecha y nombres consistentes
+colnames(inflacion_usa) <- c("Fecha", "Inflacion_USA")
+colnames(inflacion_trimestral) <- c("Fecha", "Inflacion_Colombia")
+colnames(tasa_politica_trimestral) <- c("Fecha", "TPM")  # TPM = Tasa Política Monetaria
+
+# Unir progresivamente
+df_merged <- inflacion_usa %>%
+  inner_join(inflacion_trimestral, by = "Fecha") %>%
+  inner_join(tasa_politica_trimestral, by = "Fecha")
+
+# Convertir de Wide a long
+df_long <- df_merged %>%
+  dplyr::select(Fecha, Inflacion_USA, Inflacion_Colombia, TPM) %>%
+  pivot_longer(cols = -Fecha, names_to = "Variable", values_to = "Valor")
+```
+
+
+### Gráfico 3: Inflación en Colombia, Inflación EE.UU. y Tasa ed Política Monetaria
+
+```{r}
+# Graficar
+ggplot(df_long, aes(x = Fecha, y = Valor, color = Variable)) +
+  geom_line(size = 1) +
+  labs(
+    title = "Comparación: Inflación Colombia, Inflación EE.UU. y Tasa Política Monetaria",
+    x = "Fecha",
+    y = "Porcentaje (%)",
+    color = "Variable"
+  ) +
+  theme_minimal(base_size = 13) +
+  scale_color_manual(values = c(
+    "Inflacion_Colombia" = "#E41A1C",
+    "Inflacion_USA" = "#377EB8",
+    "TPM" = "#4DAF4A"
+  )) +
+  theme(legend.position = "top")
+```
+
+```{r}
+# Renombrar columnas para unificación
+colnames(desempleo_trimestral)[1] <- "Fecha"
+colnames(PIB_real)[1] <- "Fecha"
+#
+df_union <- desempleo_trimestral %>% 
+  inner_join(inflacion_trimestral, by = 'Fecha') %>% 
+  inner_join(PIB_real, by = 'Fecha')
+
+# Normalizamos todas las variables 
+variables_a_normalizar <- c('Tasa de Desocupación (TD)', 
+                            'Inflacion_Colombia', 
+                            'Variacion_Trimestral')
+
+# Normalizamos o estandarizamos las variables de interés
+df_estandarizado <- df_union %>%
+  mutate(across(all_of(variables_a_normalizar),
+                ~ scale(.)[,1],  # convierte a z-score
+                .names = "{.col}_z"))
+
+# Pasar de wide a long
+df_plot_norm <- df_estandarizado %>%
+  dplyr::select('Fecha', 
+         'Tasa de Desocupación (TD)_z', 
+         'Inflacion_Colombia_z', 
+         'Variacion_Trimestral_z') %>%
+  pivot_longer(cols = -Fecha, 
+               names_to = "Variable", 
+               values_to = "Valor")
+
+# Graficamos
+ggplot(df_plot_norm, aes(x = Fecha, y = Valor, color = Variable)) +
+  geom_line(size = 1) +
+  labs(
+    title = "Comportamiento Normalizado: Inflación, Desempleo y PIB en Colombia",
+    x = "Fecha",
+    y = "Valor Normalizado (0-1)",
+    color = "Variable"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "top")
+```
+
+```{r}
+# Preparar las series
+# Poner todas las columnas de fecha con el mismo nombre
+colnames(trm_filt) <- c('Fecha', 'TRM')
+colnames(petroleo_trimestral) <- c('Fecha','Cierre','Apertura',
+                                   'Maximo','Minimo','Vol.','var.')
+colnames(colcap_trimestral) <- c('Fecha','Indice','Variacion_Abs','Variacion_Rel')
+
+#
+df_union <- reduce(list(inflacion_trimestral,
+                        tasa_politica_trimestral,
+                        PIB_real, trm_filt,
+                        petroleo_trimestral,
+                        colcap_trimestral,
+                        inflacion_usa,
+                        desempleo_trimestral),
+                   ~ full_join(.x, .y, by = 'Fecha'))
+
+#Eliminar filas con NA's
+df_union <- df_union %>% drop_na()
+df_union <- df_union %>% dplyr::select(-c("Fecha","Maximo","Minimo","Apertura","var.",
+                                   "Vol.","Variacion_Abs","Variacion_Rel"))
+```
+
+### Pruebas de Raiz Unitaria
+$$
+\begin{align}
+&H_0: \text{La serie tiene raiz unitaria}\\
+&H_1: \text{No hay raíz unitaria}
+\end{align}
+$$
+
+```{r, warning=FALSE}
+library(urca)
+library(tseries)
+
+# Variables a las que aplicar logaritmo
+log_vars <- c(
+  "PIB_Real",
+  "TRM",
+  "Cierre",
+  "Indice")
+
+# Convertimos series 
+log_PIB_real <- log(df_union$PIB_Real)
+log_TRM <- log(df_union$TRM)
+log_petroleo <- log(df_union$Cierre)
+log_colcap <- log(df_union$Indice)
+
+
+# PIB ADF
+adf_PIB <- ur.df(diff(log_PIB_real), type = 'drift', selectlags = 'AIC')
+summary(adf_PIB)
+
+# PIB PP
+pp_PIB <- pp.test(diff(log_PIB_real))
+pp_PIB
+
+# TRM ADF
+adf_TRM <- ur.df(diff(log_TRM), type = 'drift', selectlags = 'AIC')
+summary(adf_TRM)
+
+# TRM PP
+pp_TRM <- pp.test(diff(log_TRM))
+pp_TRM
+
+# ADF Petroleo
+adf_petroleo <- ur.df(diff(log_petroleo), type = 'drift', selectlags = 'AIC')
+summary(adf_petroleo)
+
+# Petroleo PP
+pp_petroleo <- pp.test(diff(log_petroleo))
+pp_petroleo
+
+# ADF Colcap
+adf_colcap <- ur.df(diff(log_colcap), type= 'trend', selectlags = 'AIC')
+summary(adf_colcap)
+
+# Colcap PP
+pp_colcap <- pp.test(diff(log_colcap))
+pp_colcap
+
+# TPM ADF
+adf_TPM <- ur.df(diff(df_union$TPM), type= 'trend', selectlags = 'AIC')
+summary(adf_TPM)
+
+# TPM PP
+pp_TPM <- pp.test(diff(df_union$TPM))
+pp_TPM
+
+# Desempleo ADF
+adf_desempleo <- ur.df(diff(df_union$`Tasa de Desocupación (TD)`), type = 'drift', selectlags = 'AIC')
+summary(adf_desempleo)
+
+# PP Desempleo
+pp_desempleo <- pp.test(diff(df_union$`Tasa de Desocupación (TD)`))
+pp_desempleo
+
+# ADF Inflacion
+adf_inflacion <- ur.df(diff(df_union$Inflacion_Colombia), 
+                       type = 'drift', selectlags = 'AIC')
+summary(adf_inflacion)
+
+# PP Inflacion
+pp_inflacion <- pp.test(diff(df_union$Inflacion_Colombia))
+pp_inflacion
+
+# ADF Inflacion USA
+adf_usa <- ur.df(diff(df_union$Inflacion_USA), type = 'drift', selectlags = 'AIC')
+summary(adf_usa)
+
+# PP Inflación USA
+pp_usa <- pp.test(diff(df_union$Inflacion_USA))
+pp_usa
+```
+
+```{r}
+# Unir las series estacionarias en un dataframe
+# Series logarítmicas diferenciadas
+dlog_PIB_real    <- diff(log(df_union$PIB_Real))
+dlog_TRM         <- diff(log(df_union$TRM))
+dlog_petroleo    <- diff(log(df_union$Cierre))
+dlog_colcap      <- diff(log(df_union$Indice))
+
+# Series diferenciadas directamente
+d_TPM            <- diff(df_union$TPM)
+d_desempleo      <- diff(df_union$`Tasa de Desocupación (TD)`)
+d_inflacion_col  <- diff(df_union$Inflacion_Colombia)
+d_inflacion_usa  <- diff(df_union$Inflacion_USA)
+
+df_var <- data.frame(
+  dlog_PIB_real,
+  dlog_TRM,
+  dlog_petroleo,
+  dlog_colcap,
+  d_TPM,
+  d_desempleo,
+  d_inflacion_col,
+  d_inflacion_usa
+)
+
+# Renombramos las columnas
+colnames(df_var) <- c(
+  "dlog_PIB_real",
+  "dlog_TRM",
+  "dlog_petroleo",
+  "dlog_colcap",
+  "d_TPM",
+  "d_desempleo",
+  "d_inflacion_col",
+  "d_inflacion_usa"
+)
+```
+
+```{r}
+library(vars)
+# Reordenamiento
+orden <- c("d_inflacion_usa","dlog_petroleo","dlog_TRM","d_TPM",
+                            "dlog_PIB_real","dlog_colcap","d_desempleo","d_inflacion_col")
+
+df_var <- df_var[, orden]
+
+
+# Elimianr TRM 
+df_reduced <- df_var[,!(colnames(df_var) %in% c('dlog_TRM'))] 
+
+# Selección de rezagos
+lag_selection <- VARselect(df_reduced, type = 'const', lag.max = 10)
+lag_selection$selection
+
+var_model <- VAR(df_reduced, p = 3, type = 'const')
+summary(var_model)
+
+# Estabilidad
+roots(var_model)
+plot(roots(var_model))   # El modelo es estable
+
+# Autocorrelación de los residuos
+serial.test(var_model, lags.pt = 16, type = "PT.asymptotic") #p-valor > 0.05
+
+# Heterocedasticidad de los residuos
+arch.test(var_model, lags.multi = 5, multivariate.only = TRUE) # p-valor > 0.05
+
+# Normalidad de los residuos
+normality.test(var_model)          # p_valor > 0.05
+```
+```{r}
+# Funciones impulso-respuesta: Respuesta de la inflación a choques en otra variable
+irf_var <- irf(var_model,
+               impulse = c("d_inflacion_usa", "dlog_petroleo", "d_TPM", 
+                           "dlog_PIB_real", "dlog_colcap", "d_desempleo"),
+               response = "d_inflacion_col",
+               n.ahead = 20,
+               boot = TRUE)
+
+# Graficar
+plot(irf_var)
+```
+
+```{r}
+fevd_var <- fevd(var_model, n.ahead = 20)
+
+# Ver la descomposición para la inflación
+plot(fevd_var, names = "d_inflacion_col")
+```
